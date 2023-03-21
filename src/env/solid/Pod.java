@@ -55,8 +55,8 @@ public class Pod extends Artifact {
         final var httpClient = HttpClient.newHttpClient();
         try {
             final var httpResponse = httpClient.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
-            log(String.valueOf(httpResponse.statusCode()));
-            log(httpResponse.body());
+            log("Create Container Status Code: %s".formatted(String.valueOf(httpResponse.statusCode())));
+            log("Creating container %s on resource %s".formatted(containerName, containerUri));
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -83,7 +83,7 @@ public class Pod extends Artifact {
                         .PUT(HttpRequest.BodyPublishers.ofString(s))
                         .build();
                 final var httpResponse = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-                log(String.valueOf(httpResponse.statusCode()));
+                log("Put Status Code: %s".formatted(String.valueOf(httpResponse.statusCode())));
                 log("Putting: %s on resource %s".formatted(s, resourceUri));
             } else {
                 final var containerUri = URI.create("%s/%s/".formatted(podURL, containerName));
@@ -93,7 +93,7 @@ public class Pod extends Artifact {
                         .header("Content-Type", "text/plain")
                         .build();
                 final var httpResponse = httpClient.send(request, HttpResponse.BodyHandlers.discarding());
-                log(String.valueOf(httpResponse.statusCode()));
+                log("Publish Status Code: %s".formatted(String.valueOf(httpResponse.statusCode())));
                 log("Posting: %s on resource %s".formatted(s, containerUri));
             }
         } catch (IOException | InterruptedException e) {
@@ -118,7 +118,7 @@ public class Pod extends Artifact {
         try {
             final var httpClient = HttpClient.newHttpClient();
             final var httpResponse = httpClient.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
-            log(String.valueOf(httpResponse.statusCode()));
+            log("Reading Status: %s".formatted(httpResponse.statusCode()));
             log("Read: %s from Resource: %s".formatted(httpResponse.body(), resourceUri));
             Object[] objects = createArrayFromString(httpResponse.body());
             data.set(objects);
