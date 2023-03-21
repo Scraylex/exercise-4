@@ -43,7 +43,7 @@ public class Pod extends Artifact {
                 dcterms:description "This holds stuff".""".formatted(containerName);
         final var containerUri = URI.create("%s/%s/".formatted(podURL, containerName));
         if (checkResourceAlreadyExists(containerUri)) {
-            log("Resource%s exists".formatted(containerUri.toString()));
+            log("Resource: %s exists".formatted(containerUri.toString()));
             return;
         }
         final var request = HttpRequest.newBuilder(URI.create("%s/".formatted(podURL)))

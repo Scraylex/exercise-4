@@ -24,7 +24,7 @@ class PodTest {
                 "@prefix dcterms: <http://purl.org/dc/terms/>.\n" +
                 "<> a ldp:Container, ldp:BasicContainer, ldp:Resource;\n" +
                 "dcterms:title \"" + containerName + "\";\n" +
-                "dcterms:description \"Container for Exercise 4 created by a jacomo agent\".";
+                "dcterms:description \"This holds stuff\".";
 
         final var s = """
                 @prefix ldp: <http://www.w3.org/ns/ldp#>.
@@ -35,20 +35,20 @@ class PodTest {
 
         Assertions.assertEquals(requestBody, s);
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://solid.interactions.ics.unisg.ch/lukas/"))
-                .header("Content-Type", "text/turtle")
-                .header("Link", "<http://www.w3.org/ns/ldp#BasicContainer>; rel=\"type\"")
-                .header("Slug", "%s/".formatted(containerName))
-                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
-                .build();
-
-        try {
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println(response.statusCode());
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
+//        HttpClient client = HttpClient.newHttpClient();
+//        HttpRequest request = HttpRequest.newBuilder()
+//                .uri(URI.create("https://solid.interactions.ics.unisg.ch/lukas/"))
+//                .header("Content-Type", "text/turtle")
+//                .header("Link", "<http://www.w3.org/ns/ldp#BasicContainer>; rel=\"type\"")
+//                .header("Slug", "%s/".formatted(containerName))
+//                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+//                .build();
+//
+//        try {
+//            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+//            System.out.println(response.statusCode());
+//        } catch (IOException | InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 }
